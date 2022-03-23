@@ -1,47 +1,83 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MouseControler : MonoBehaviour
 {
-    private Color SavedColor;
-    private bool onTarget = false;
-    MeshRenderer targetMesh;
+    private ChangeColor objectScript;
+    private Camera cam;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        cam = Camera.main;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 
         RaycastHit hit;
         bool hitted = Physics.Raycast(ray, out hit);
 
-        /*if (hitted)
-        {
-            if (hit.transform.tag == "Chest")
-            {
-                onTarget = true;
-                targetMesh = hit.transform.GetComponent<MeshRenderer>();
-                if (SavedColor != targetMesh.material.color)
-                {
-                    Debug.Log("1");
-                    SavedColor = targetMesh.material.color;
-
-                    targetMesh.material.color += new Color(60, 0, 0);
-                }
-            }
-            else if(onTarget)
-            {
-                Debug.Log("dziala");
-                onTarget = false;
-                targetMesh.material.color = SavedColor;
-                SavedColor = new Color(-1, -1, -1);
-            }
-        }*/
+        MouseHover(hitted,hit);
+        if(Input.GetMouseButtonDown(0))
+            MouseClick(hitted, hit);
     }
+
+    private void MouseClick(bool hitted, RaycastHit hit)
+    {
+        if(hitted)
+        {
+            switch(hit.transform.tag)
+            {
+                case "Chest":
+                    Debug.Log("Skrzynka");
+                    break;
+                case "Door":
+                    Debug.Log("Drzwi");
+                    break;
+            }
+        }
+    }
+
+    private void MouseHover(bool hitted,RaycastHit hit)
+    {
+        if (hitted)
+        {
+            switch(hit.transform.tag)
+            {
+                case "Chest":
+                    ChangeObjColor(hit);
+                    break;
+                case "Door":
+                    ChangeObjColor(hit);
+                    break;
+                default:
+                    if (objectScript == null)
+                        return;
+                    objectScript.OutHover();
+                    objectScript = null;
+                    break;
+            }
+            
+        }
+    }
+
+
+    private void ChangeObjColor(RaycastHit hit)
+    {
+        if (objectScript != null && objectScript.transform == hit.transform)
+            return;
+
+        if (objectScript != null)
+            objectScript.OutHover();
+
+        objectScript = hit.transform.GetComponent<ChangeColor>();
+        objectScript.OnHover();
+    }
+
+
 }

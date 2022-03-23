@@ -7,7 +7,7 @@ public class Movement : MonoBehaviour
 {
     private Rigidbody rigid;
     [SerializeField] private float movementSpeed = 7;
-    [SerializeField] private float rotationSpeed = 2;
+    [SerializeField] private float rotationSpeed = 100;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,9 +27,9 @@ public class Movement : MonoBehaviour
     private void RotatePlayer()
     {
         if (Input.GetKey(KeyCode.Q))
-            transform.eulerAngles = transform.localRotation.eulerAngles + new Vector3(0, -1 * rotationSpeed, 0);
+            transform.eulerAngles = transform.localRotation.eulerAngles + new Vector3(0, -1 * rotationSpeed * Time.deltaTime, 0);
         else if (Input.GetKey(KeyCode.E))
-            transform.eulerAngles = transform.localRotation.eulerAngles + new Vector3(0, rotationSpeed, 0);
+            transform.eulerAngles = transform.localRotation.eulerAngles + new Vector3(0, rotationSpeed * Time.deltaTime, 0);
     }
 
     private void MovePlayer()
