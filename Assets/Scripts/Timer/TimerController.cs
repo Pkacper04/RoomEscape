@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class TimerController : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class TimerController : MonoBehaviour
     void Update()
     {
         if(StartTime)
-            timerText.text = "Timer: " + watch.Elapsed.Seconds+":"+watch.Elapsed.Milliseconds/10 + "s";
+            timerText.text = (watch.Elapsed.Seconds + watch.Elapsed.Minutes*60) + ":" + watch.Elapsed.Milliseconds/10 + "s";
     }
 
     public void StartTimer()

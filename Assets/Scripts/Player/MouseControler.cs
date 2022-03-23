@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class MouseControler : MonoBehaviour
 {
+    [SerializeField] QuestionPanelScript questionPanel;
+
     private ChangeColor objectScript;
     private Camera cam;
 
@@ -34,10 +36,10 @@ public class MouseControler : MonoBehaviour
             switch(hit.transform.tag)
             {
                 case "Chest":
-                    Debug.Log("Skrzynka");
+                    questionPanel.SetQuestionPanel("Open?", "CHEST");
                     break;
                 case "Door":
-                    Debug.Log("Drzwi");
+                    questionPanel.SetQuestionPanel("Open?", "DOOR");
                     break;
             }
         }
