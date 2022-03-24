@@ -14,4 +14,10 @@ public class MenuController : MonoBehaviour
     {
         animator.SetBool("GameStarted", true);
     }
+
+    public void AnimationEnd()
+    {
+        TimerController.StopTimer();
+        TimerController.StartTimer();
+    }
 }

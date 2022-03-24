@@ -68,6 +68,8 @@ public class QuestionPanelScript : MonoBehaviour
         Debug.Log("Game Over");
         animator.SetBool("Show", false);
         panelActive = false;
+        TimerController.StopTimer();
+        GameOver.GameOverScreen();
     }
 
 

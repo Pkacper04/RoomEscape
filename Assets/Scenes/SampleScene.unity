@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 20765607}
   - component: {fileID: 20765611}
   - component: {fileID: 20765612}
-  - component: {fileID: 20765613}
+  - component: {fileID: 20765614}
   m_Layer: 5
   m_Name: GUI
   m_TagString: Untagged
@@ -263,7 +263,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 1713782558}
---- !u!114 &20765613
+--- !u!114 &20765614
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -272,11 +272,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 20765606}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: caf1ff4c12e52b949bce63800f22c228, type: 3}
+  m_Script: {fileID: 11500000, guid: b6f71fd1612709e4eb03fee95220c0df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverScreen: {fileID: 2047302599}
-  currentScore: {fileID: 1324420406}
+  animator: {fileID: 20765611}
 --- !u!1 &78603425
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,7 +395,6 @@ GameObject:
   - component: {fileID: 89339020}
   - component: {fileID: 89339022}
   - component: {fileID: 89339021}
-  - component: {fileID: 89339024}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -463,19 +461,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 89339019}
   m_CullTransparentMesh: 1
---- !u!114 &89339024
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 89339019}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6f71fd1612709e4eb03fee95220c0df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 20765611}
 --- !u!1 &105210722
 GameObject:
   m_ObjectHideFlags: 0
@@ -559,7 +544,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 89339024}
+      - m_Target: {fileID: 20765614}
         m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
         m_MethodName: StartGame
         m_Mode: 1
@@ -4108,13 +4093,14 @@ GameObject:
   - component: {fileID: 2047302600}
   - component: {fileID: 2047302602}
   - component: {fileID: 2047302601}
+  - component: {fileID: 2047302603}
   m_Layer: 5
   m_Name: GameOverScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2047302600
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4176,6 +4162,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2047302599}
   m_CullTransparentMesh: 1
+--- !u!114 &2047302603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2047302599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caf1ff4c12e52b949bce63800f22c228, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2080465047
 GameObject:
   m_ObjectHideFlags: 0
