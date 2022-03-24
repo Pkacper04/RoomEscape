@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class TimerController : MonoBehaviour
 {
-    Stopwatch watch = new Stopwatch();
-    private bool StartTime = false;
+    static Stopwatch watch = new Stopwatch();
+    private static bool StartTime = false;
 
     [SerializeField] private TMP_Text timerText;
     // Start is called before the first frame update
@@ -17,19 +18,25 @@ public class TimerController : MonoBehaviour
     void Update()
     {
         if(StartTime)
-            timerText.text = "Timer: " + watch.Elapsed.Seconds+":"+watch.Elapsed.Milliseconds/10 + "s";
+            timerText.text = (watch.Elapsed.Seconds + watch.Elapsed.Minutes*60) + ":" + watch.Elapsed.Milliseconds/10 + "s";
     }
 
-    public void StartTimer()
+    public static void StartTimer()
     {
         watch.Start();
         StartTime = true;
     }
 
-    public void StopTimer()
+    public static void StopTimer()
     {
         watch.Stop();
         StartTime = false;
     }
+
+    public static double GetTimer()
+    {
+        return watch.Elapsed.TotalSeconds;
+    }
+
 
 }
