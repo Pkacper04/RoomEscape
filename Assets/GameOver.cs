@@ -1,19 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameOver : MonoBehaviour
 {
-    [SerializeField] GameObject gameOverScreen;
-    // Start is called before the first frame update
-    void Start()
+    private static GameObject gameOverScreen;
+    private static TMP_Text currentScore;
+
+    private void Start()
     {
-        
+        gameOverScreen.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    public static void GameOverScreen()
     {
-        
+        currentScore.text = "Current time: "+TimerController.GetTimer().ToString();
+        gameOverScreen.SetActive(true);
+
     }
+    
 }

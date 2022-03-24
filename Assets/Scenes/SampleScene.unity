@@ -275,7 +275,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caf1ff4c12e52b949bce63800f22c228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverScreen: {fileID: 0}
+  gameOverScreen: {fileID: 2047302599}
+  currentScore: {fileID: 1324420406}
 --- !u!1 &78603425
 GameObject:
   m_ObjectHideFlags: 0
