@@ -10,7 +10,10 @@ public class MenuController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        bestScore.text = "Best score: " + SaveSystem.LoadScore()+"s";
+        if (SaveSystem.LoadScore() != -1)
+            bestScore.text = "Best score: " + SaveSystem.LoadScore() + "s";
+        else
+            bestScore.text = "Best score: ";
     }
 
     public void StartGame()
