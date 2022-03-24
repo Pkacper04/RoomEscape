@@ -12,7 +12,7 @@ public class QuestionPanelScript : MonoBehaviour
 
     [SerializeField] TMP_Text question; 
     [SerializeField] Button buttonYes;
-    [SerializeField] GameObject key;
+    private GameObject key;
 
     private void Awake()
     {
@@ -20,6 +20,7 @@ public class QuestionPanelScript : MonoBehaviour
     }
     void Start()
     {
+        key = GameObject.FindWithTag("Key");
         animator = GetComponent<Animator>();
     }
 
@@ -56,7 +57,9 @@ public class QuestionPanelScript : MonoBehaviour
         MouseControler.chestOpened = true;
         animator.SetBool("Show", false);
         panelActive=false;
-        key.SetActive(true);
+        key.GetComponent<MeshRenderer>().enabled = true;
+        key.GetComponent<BoxCollider>().enabled = true;
+        key.GetComponent<ChangeColor>().enabled = true;
     }
 
     public void TakeKey()
