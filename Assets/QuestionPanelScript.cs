@@ -8,12 +8,16 @@ public class QuestionPanelScript : MonoBehaviour
 {
     private Animator animator;
 
-    public static bool panelActive = false;
+    public static bool panelActive;
 
     [SerializeField] TMP_Text question; 
     [SerializeField] Button buttonYes;
     [SerializeField] GameObject key;
 
+    private void Awake()
+    {
+        panelActive = false;
+    }
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -65,7 +69,6 @@ public class QuestionPanelScript : MonoBehaviour
 
     public void OpenDoor()
     {
-        Debug.Log("Game Over");
         animator.SetBool("Show", false);
         panelActive = false;
         TimerController.StopTimer();

@@ -5,11 +5,12 @@ using UnityEngine;
 public class PlayerData : MonoBehaviour
 {
 
-    static private bool key = false;
-    // Start is called before the first frame update
-    void Start()
+    static private bool key;
+
+
+    private void Awake()
     {
-        
+        key = false;
     }
 
     public static void SetKey()

@@ -7,13 +7,17 @@ using System;
 
 public class TimerController : MonoBehaviour
 {
-    static Stopwatch watch = new Stopwatch();
-    private static bool StartTime = false;
+    static Stopwatch watch;
+    public static bool StartTime;
 
     [SerializeField] private TMP_Text timerText;
     // Start is called before the first frame update
 
-
+    private void Awake()
+    {
+        StartTime = false;
+        watch = new Stopwatch();
+    }
     // Update is called once per frame
     void Update()
     {
@@ -23,6 +27,7 @@ public class TimerController : MonoBehaviour
 
     public static void StartTimer()
     {
+        watch.Restart();
         watch.Start();
         StartTime = true;
     }

@@ -7,10 +7,15 @@ public class MouseControler : MonoBehaviour
 {
     [SerializeField] QuestionPanelScript questionPanel;
 
-    public static bool chestOpened = false;
+    public static bool chestOpened;
 
     private ChangeColor objectScript;
     private Camera cam;
+
+    private void Awake()
+    {
+        chestOpened = false;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +26,7 @@ public class MouseControler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (QuestionPanelScript.panelActive)
+        if (!TimerController.StartTime || QuestionPanelScript.panelActive)
             return;
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 

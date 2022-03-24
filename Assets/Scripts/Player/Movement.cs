@@ -17,7 +17,8 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (!TimerController.StartTime)
+            return;
         MovePlayer();
 
         RotatePlayer();
