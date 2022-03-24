@@ -8,8 +8,11 @@ public class QuestionPanelScript : MonoBehaviour
 {
     private Animator animator;
 
+    public static bool panelActive = false;
+
     [SerializeField] TMP_Text question; 
-    [SerializeField] Button buttonYes; 
+    [SerializeField] Button buttonYes;
+    [SerializeField] GameObject key;
 
     void Start()
     {
@@ -34,30 +37,38 @@ public class QuestionPanelScript : MonoBehaviour
         }
 
         animator.SetBool("Show",true);
+        panelActive = true;
     }
 
 
     public void No()
     {
         animator.SetBool("Show", false);
+        panelActive = false;
     }
 
     public void OpenChest()
     {
-        Debug.Log("Otworzyles skrzynie");
+        MouseControler.chestOpened = true;
         animator.SetBool("Show", false);
-        SetQuestionPanel("Take?", "KEY");
+        panelActive=false;
+        key.SetActive(true);
     }
 
     public void TakeKey()
     {
-        Debug.Log("Wziales klucz");
         animator.SetBool("Show", false);
+        PlayerData.SetKey();
+        panelActive = false;
+        key.SetActive(false);
     }
 
     public void OpenDoor()
     {
         Debug.Log("Game Over");
         animator.SetBool("Show", false);
+        panelActive = false;
     }
+
+
 }

@@ -7,6 +7,8 @@ public class MouseControler : MonoBehaviour
 {
     [SerializeField] QuestionPanelScript questionPanel;
 
+    public static bool chestOpened = false;
+
     private ChangeColor objectScript;
     private Camera cam;
 
@@ -19,6 +21,8 @@ public class MouseControler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (QuestionPanelScript.panelActive)
+            return;
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 
         RaycastHit hit;
@@ -36,10 +40,25 @@ public class MouseControler : MonoBehaviour
             switch(hit.transform.tag)
             {
                 case "Chest":
-                    questionPanel.SetQuestionPanel("Open?", "CHEST");
+                    if (!chestOpened)
+                        questionPanel.SetQuestionPanel("Open?", "CHEST");
+                    else
+                    {
+                        InfoBox.SetInfoBox("Chest is empty!");
+                        InfoBox.ShowInfoBox();
+                    }
+                    break;
+                case "Key":
+                    questionPanel.SetQuestionPanel("Take?", "KEY");
                     break;
                 case "Door":
-                    questionPanel.SetQuestionPanel("Open?", "DOOR");
+                    if (PlayerData.GetKey())
+                        questionPanel.SetQuestionPanel("Open?", "DOOR");
+                    else
+                    {
+                        InfoBox.SetInfoBox("You need a key!");
+                        InfoBox.ShowInfoBox();
+                    }
                     break;
             }
         }
@@ -55,6 +74,9 @@ public class MouseControler : MonoBehaviour
                     ChangeObjColor(hit);
                     break;
                 case "Door":
+                    ChangeObjColor(hit);
+                    break;
+                case "Key":
                     ChangeObjColor(hit);
                     break;
                 default:
