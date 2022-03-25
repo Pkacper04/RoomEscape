@@ -10,10 +10,14 @@ public class QuestionPanelScript : MonoBehaviour
 
     public static bool panelActive;
 
+
     [SerializeField] TMP_Text question; 
     [SerializeField] Button buttonYes;
-    private ChestScript chest;
 
+    private ChestScript chest;
+    private DoorScript door;
+
+    private bool doorActive = false;
     private void Awake()
     {
         panelActive = false;
@@ -21,6 +25,7 @@ public class QuestionPanelScript : MonoBehaviour
     void Start()
     {
         chest = GameObject.FindWithTag("Chest").GetComponent<ChestScript>();
+        door = GameObject.FindWithTag("Door").GetComponent<DoorScript>();
         animator = GetComponent<Animator>();
     }
 
@@ -66,14 +71,15 @@ public class QuestionPanelScript : MonoBehaviour
     public void OpenDoor()
     {
         animator.SetBool("Show", false);
-        panelActive = false;
-        TimerController.StopTimer();
-        GameOver.GameOverScreen();
+        doorActive = true;
+        
     }
 
     public void WaitForAnimation()
     {
         panelActive = false;
+        if(doorActive)
+            door.OpenDoor();
     }
 
 
