@@ -517,7 +517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b6526baedbe48d45936f8887f78b569, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boxPrefab: {fileID: 4731348150710596427, guid: 18194585a57f24642a614df760e6f869, type: 3}
+  boxPrefab: {fileID: 8683421469902258083, guid: 9f8df796228803442b4333114cdefded, type: 3}
   doorPrefab: {fileID: 4579099381721659751, guid: 53fc6784e70dc594db6cf99a63dc4ecd, type: 3}
   wallPrefab: {fileID: 752698296700339356, guid: 0be0b0d528149f2449a93458150dd8f3, type: 3}
   center: {x: 50, y: 0, z: 50}

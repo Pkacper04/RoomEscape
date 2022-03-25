@@ -28,6 +28,10 @@ public class InfoBox : MonoBehaviour
     public static void HideInfoBox()
     {
         animator.SetBool("Show", false);
+    }
+
+    public void WaitForAnimation()
+    {
         QuestionPanelScript.panelActive = false;
     }
 }

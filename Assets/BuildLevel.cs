@@ -35,13 +35,13 @@ public class BuildLevel : MonoBehaviour
 
     private void BuildChest()
     {
-        float pos_x = Random.Range(minValue, maxValue + 1);
-        float pos_z = Random.Range(minValue, maxValue + 1);
+        float pos_x = Random.Range(minValue, maxValue);
+        float pos_z = Random.Range(minValue, maxValue);
 
-        Vector3 boxPos = new Vector3(pos_x, 0.5f, pos_z);
+        Vector3 boxPos = new Vector3(pos_x, 0f, pos_z);
 
         if (Vector3.Distance(center, boxPos) < boxOffset)
-            boxPos += new Vector3(2, 0, 0);
+            boxPos += new Vector3(boxOffset, 0, 0);
 
         Instantiate(boxPrefab, boxPos, Quaternion.identity);
 

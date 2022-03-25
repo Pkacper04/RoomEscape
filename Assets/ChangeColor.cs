@@ -4,24 +4,31 @@ using UnityEngine;
 
 public class ChangeColor : MonoBehaviour
 {
-    private Color startColor;
-    private MeshRenderer objectRenderer;
+    private Dictionary<MeshRenderer,Color> objectRenderer = new Dictionary<MeshRenderer,Color>();
     // Start is called before the first frame update
     void Start()
     {
-        objectRenderer = GetComponent<MeshRenderer>();
-        startColor = objectRenderer.material.color;
+        foreach (var item in GetComponentsInChildren<MeshRenderer>())
+        {
+            objectRenderer.Add(item,item.material.color);
+        }
     }
 
     public void OnHover()
     {
-        objectRenderer.material.color += new Color(0.3f, 0, 0);
+        foreach (var item in objectRenderer.Keys)
+        {
+            item.material.color += new Color(0.3f, 0, 0);
+        }
     }
 
 
     public void OutHover()
     {
-        objectRenderer.material.color = startColor;
+        foreach (var item in objectRenderer)
+        {
+            item.Key.material.color = item.Value;
+        }
     }
 
 }

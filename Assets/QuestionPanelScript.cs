@@ -12,7 +12,7 @@ public class QuestionPanelScript : MonoBehaviour
 
     [SerializeField] TMP_Text question; 
     [SerializeField] Button buttonYes;
-    private GameObject key;
+    private ChestScript chest;
 
     private void Awake()
     {
@@ -20,7 +20,7 @@ public class QuestionPanelScript : MonoBehaviour
     }
     void Start()
     {
-        key = GameObject.FindWithTag("Key");
+        chest = GameObject.FindWithTag("Chest").GetComponent<ChestScript>();
         animator = GetComponent<Animator>();
     }
 
@@ -49,25 +49,18 @@ public class QuestionPanelScript : MonoBehaviour
     public void No()
     {
         animator.SetBool("Show", false);
-        panelActive = false;
     }
 
     public void OpenChest()
     {
-        MouseControler.chestOpened = true;
         animator.SetBool("Show", false);
-        panelActive=false;
-        key.GetComponent<MeshRenderer>().enabled = true;
-        key.GetComponent<BoxCollider>().enabled = true;
-        key.GetComponent<ChangeColor>().enabled = true;
+        chest.Open();
     }
 
     public void TakeKey()
     {
+        chest.TakeKey();
         animator.SetBool("Show", false);
-        PlayerData.SetKey();
-        panelActive = false;
-        key.SetActive(false);
     }
 
     public void OpenDoor()
@@ -76,6 +69,11 @@ public class QuestionPanelScript : MonoBehaviour
         panelActive = false;
         TimerController.StopTimer();
         GameOver.GameOverScreen();
+    }
+
+    public void WaitForAnimation()
+    {
+        panelActive = false;
     }
 
 
