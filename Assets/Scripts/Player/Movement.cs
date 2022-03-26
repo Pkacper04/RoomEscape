@@ -8,6 +8,8 @@ public class Movement : MonoBehaviour
     private Rigidbody rigid;
     [SerializeField] private float movementSpeed = 7;
     [SerializeField] private float rotationSpeed = 100;
+
+    private bool inShake = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +24,8 @@ public class Movement : MonoBehaviour
         MovePlayer();
 
         RotatePlayer();
+
+        
 
     }
 
@@ -39,6 +43,29 @@ public class Movement : MonoBehaviour
         float CameraRotation = transform.rotation.eulerAngles.y;
 
         rigid.position += Quaternion.Euler(0, CameraRotation, 0) * movement * movementSpeed * Time.deltaTime;
+
+        if (rigid.velocity != Vector3.zero)
+            rigid.velocity = Vector3.zero;
+
+        if (!inShake && movement != Vector3.zero)
+            StartCoroutine("CameraShaking");
+        else if (movement == Vector3.zero)
+        {
+            StopCoroutine("CameraShaking");
+            inShake = false;
+            transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+        }
     }
 
+
+    
+    private IEnumerator CameraShaking()
+    {
+        inShake = true;
+        transform.eulerAngles += new Vector3(.1f, 0, 0);
+        yield return new WaitForSeconds(.1f);
+        transform.eulerAngles -= new Vector3(.1f, 0, 0);
+        yield return new WaitForSeconds(.1f);
+        inShake = false;
+    }
 }
