@@ -6,8 +6,12 @@ public class ChestScript : MonoBehaviour
 {
     private Animator animator;
     private AudioSource SFXaudio;
+
     [SerializeField] GameObject key;
+
     [SerializeField] ParticleSystem keyParticles;
+    [SerializeField] ParticleSystem chestParticles;
+
     [SerializeField] AudioClip chestCracking;
     [SerializeField] AudioClip pickingUpKey;
     private void Start()
@@ -18,6 +22,7 @@ public class ChestScript : MonoBehaviour
     // Start is called before the first frame update
     public void Open()
     {
+        
         StartCoroutine("WaitForChestAnimation");
 
     }
@@ -36,6 +41,7 @@ public class ChestScript : MonoBehaviour
     private IEnumerator WaitForChestAnimation()
     {
         yield return new WaitUntil(() => QuestionPanelScript.panelActive == false);
+        chestParticles.Play();
         MouseControler.chestOpened = true;
         animator.SetBool("Open", true);
         SFXaudio.clip = chestCracking;

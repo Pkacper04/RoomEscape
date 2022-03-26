@@ -9,7 +9,7 @@ public class BuildLevel : MonoBehaviour
     [SerializeField] private GameObject wallPrefab;
     [SerializeField] private Vector3 center = new Vector3(50,0,50);
     [SerializeField] private float length = 20;
-    [SerializeField] private float boxOffset = 2;
+    [SerializeField] private float offset = 2;
 
 
     private float minValue;
@@ -22,8 +22,8 @@ public class BuildLevel : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        minValue = center.x - length / 2 + boxOffset;
-        maxValue = center.x + length / 2 - boxOffset;
+        minValue = center.x - length / 2 + offset;
+        maxValue = center.x + length / 2 - offset;
 
         BuildChest();
 
@@ -40,8 +40,8 @@ public class BuildLevel : MonoBehaviour
 
         Vector3 boxPos = new Vector3(pos_x, 0f, pos_z);
 
-        if (Vector3.Distance(center, boxPos) < boxOffset)
-            boxPos += new Vector3(boxOffset, 0, 0);
+        if (Vector3.Distance(center, boxPos) < offset)
+            boxPos += new Vector3(offset, 0, 0);
 
         Instantiate(boxPrefab, boxPos, Quaternion.identity);
 
@@ -50,7 +50,6 @@ public class BuildLevel : MonoBehaviour
     private void ChooseDoorPosition()
     {
         wallNumber = Random.Range(0, 4);
-        Debug.Log(wallNumber);
 
         float pos = Random.Range(minValue, maxValue - 2);
 
@@ -59,19 +58,19 @@ public class BuildLevel : MonoBehaviour
         {
             case 0:
                 doorRotation = new Vector3(0, 90, 0);
-                doorPosition = new Vector3(pos, 0, maxValue + boxOffset);
+                doorPosition = new Vector3(pos, 0, maxValue + offset);
                 break;
             case 1:
                 doorRotation = new Vector3(0, 180, 0);
-                doorPosition = new Vector3(maxValue + boxOffset, 0, pos);
+                doorPosition = new Vector3(maxValue + offset, 0, pos);
                 break;
             case 2:
                 doorRotation = new Vector3(0, 270, 0);
-                doorPosition = new Vector3(pos, 0, minValue - boxOffset);
+                doorPosition = new Vector3(pos, 0, minValue - offset);
                 break;
             case 3:
                 doorRotation = new Vector3(0, 0, 0);
-                doorPosition = new Vector3(minValue - boxOffset, 0, pos);
+                doorPosition = new Vector3(minValue - offset, 0, pos);
                 break;
         }
 
@@ -91,19 +90,19 @@ public class BuildLevel : MonoBehaviour
             switch (i)
             {
                 case 0:
-                    pos = new Vector3(center.x, 2.5f, maxValue + boxOffset);
+                    pos = new Vector3(center.x, 2.5f, maxValue + offset);
                     rotation = new Vector3(0, 0, 0);
                     break;
                 case 1:
-                    pos = new Vector3(maxValue + boxOffset, 2.5f, center.z);
+                    pos = new Vector3(maxValue + offset, 2.5f, center.z);
                     rotation = new Vector3(0, 90, 0);
                     break;
                 case 2:
-                    pos = new Vector3(center.x, 2.5f, minValue - boxOffset);
+                    pos = new Vector3(center.x, 2.5f, minValue - offset);
                     rotation = new Vector3(0, 180, 0);
                     break;
                 case 3:
-                    pos = new Vector3(minValue - boxOffset, 2.5f, center.z);
+                    pos = new Vector3(minValue - offset, 2.5f, center.z);
                     rotation = new Vector3(0, 270, 0);
                     break;
             }
@@ -133,7 +132,7 @@ public class BuildLevel : MonoBehaviour
 
         if (wallNumber % 2 == 0)
         {
-            LeftWallLength = maxValue + boxOffset - doorPosition.x - 0.45f;
+            LeftWallLength = maxValue + offset - doorPosition.x - 0.45f;
             RightWallLength = length - LeftWallLength - 0.45f;
 
             leftWall = Instantiate(wallPrefab, new Vector3(doorPosition.x + LeftWallLength / 2 + 0.45f, pos.y, pos.z), Quaternion.Euler(rotation));
@@ -144,7 +143,7 @@ public class BuildLevel : MonoBehaviour
         }
         else
         {
-            LeftWallLength = maxValue + boxOffset - doorPosition.z - 0.45f;
+            LeftWallLength = maxValue + offset - doorPosition.z - 0.45f;
             RightWallLength = length - LeftWallLength - 0.45f;
 
             leftWall = Instantiate(wallPrefab, new Vector3(pos.x, pos.y, doorPosition.z + LeftWallLength / 2 + 0.45f), Quaternion.Euler(rotation));

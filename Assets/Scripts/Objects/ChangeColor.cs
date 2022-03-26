@@ -18,7 +18,7 @@ public class ChangeColor : MonoBehaviour
     {
         foreach (var item in objectRenderer.Keys)
         {
-            item.material.color += new Color(0.3f, 0, 0);
+            item.material.color += new Color(1f, 1f, 1f);
         }
     }
 

@@ -44,6 +44,9 @@ public class Movement : MonoBehaviour
 
         rigid.position += Quaternion.Euler(0, CameraRotation, 0) * movement * movementSpeed * Time.deltaTime;
 
+        if (rigid.velocity != Vector3.zero)
+            rigid.velocity = Vector3.zero;
+
         if (!inShake && movement != Vector3.zero)
             StartCoroutine("CameraShaking");
         else if (movement == Vector3.zero)

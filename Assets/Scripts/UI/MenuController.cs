@@ -5,11 +5,12 @@ using TMPro;
 
 public class MenuController : MonoBehaviour
 {
-    [SerializeField] private Animator animator;
+    private static Animator animator;
     [SerializeField] private TMP_Text bestScore;
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponent<Animator>();
         if (SaveSystem.LoadScore() != -1)
             bestScore.text = "Best score: " + SaveSystem.LoadScore() + "s";
         else
@@ -24,5 +25,10 @@ public class MenuController : MonoBehaviour
     public void AnimationEnd()
     {
         TimerController.StartTimer();
+    }
+
+    public static void EndGame()
+    {
+        animator.SetBool("GameStarted", false);
     }
 }

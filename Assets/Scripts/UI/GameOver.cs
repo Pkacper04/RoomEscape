@@ -33,12 +33,24 @@ public class GameOver : MonoBehaviour
 
     public static void GameOverScreen()
     {
-        SaveSystem.SaveScore(Math.Round(TimerController.GetTimer(), 2));
-        currentScore.text = "Current time: "+ Math.Round(TimerController.GetTimer(),2) + "s";
-        if(SaveSystem.LoadScore() == -1)
-            bestScore.text = "Best time: " + Math.Round(TimerController.GetTimer(), 2) + "s";
+        MenuController.EndGame();
+
+        double time = Math.Round(TimerController.GetTimer(), 2);
+        bool hightScore = SaveSystem.NewHightScore(time);
+
+        
+        currentScore.text = "Current time: "+ time + "s";
+
+        if(hightScore)
+        {
+            SaveSystem.SaveScore(time);
+            bestScore.text = "New Best time: " + SaveSystem.LoadScore() + "s";
+        }
         else
+        {
             bestScore.text = "Best time: " + SaveSystem.LoadScore() + "s";
+        }
+            
 
         
 
