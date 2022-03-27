@@ -1,33 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class SaveSystem : MonoBehaviour
+namespace RoomEscape.Player
 {
-
-
-
-    public static void SaveScore(double time)
-    {     
-        string timeToText = time.ToString();
-        PlayerPrefs.SetString("score",timeToText);
-        PlayerPrefs.Save();
-    }
-
-
-    public static double LoadScore()
+    public class SaveSystem : MonoBehaviour
     {
-        if (PlayerPrefs.GetString("score") == "")
-            return -1;
+        public static void SaveScore(double time)
+        {
+            string timeToText = time.ToString();
+            PlayerPrefs.SetString("score", timeToText);
+            PlayerPrefs.Save();
+        }
 
-        return double.Parse(PlayerPrefs.GetString("score"));
-    }
+        public static double LoadScore()
+        {
+            if (PlayerPrefs.GetString("score") == "")
+                return -1;
 
-    public static bool NewHightScore(double time)
-    {
-        if (LoadScore() == -1)
-            return true;
+            return double.Parse(PlayerPrefs.GetString("score"));
+        }
 
-        return time < LoadScore();
+        public static bool NewHightScore(double time)
+        {
+            if (LoadScore() == -1)
+                return true;
+
+            return time < LoadScore();
+        }
     }
 }

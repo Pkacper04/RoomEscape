@@ -1,31 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-public class PlayerData : MonoBehaviour
+namespace RoomEscape.Player
 {
-
-    static private bool key;
-
-
-    private void Awake()
+    public class PlayerData : MonoBehaviour
     {
-        key = false;
-    }
+        static public bool key { get; set; }
 
-    public static void SetKey()
-    {
-        key = !key;
-    }
+        private void Awake()
+        {
+            key = false;
+        }
 
-    public static bool GetKey()
-    {
-        return key;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

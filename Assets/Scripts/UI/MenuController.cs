@@ -1,34 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using RoomEscape.Player;
+using RoomEscape.Core;
 
-public class MenuController : MonoBehaviour
+namespace RoomEscape.UI
 {
-    private static Animator animator;
-    [SerializeField] private TMP_Text bestScore;
-    // Start is called before the first frame update
-    void Start()
+    public class MenuController : MonoBehaviour
     {
-        animator = GetComponent<Animator>();
-        if (SaveSystem.LoadScore() != -1)
-            bestScore.text = "Best score: " + SaveSystem.LoadScore() + "s";
-        else
-            bestScore.text = "Best score: ";
-    }
+        private static Animator animator;
+        [SerializeField] private TMP_Text bestScore;
 
-    public void StartGame()
-    {
-        animator.SetBool("GameStarted", true);
-    }
 
-    public void AnimationEnd()
-    {
-        TimerController.StartTimer();
-    }
+        void Start()
+        {
+            animator = GetComponent<Animator>();
+            if (SaveSystem.LoadScore() != -1)
+                bestScore.text = "Best score: " + SaveSystem.LoadScore() + "s";
+            else
+                bestScore.text = "Best score: ";
+        }
 
-    public static void EndGame()
-    {
-        animator.SetBool("GameStarted", false);
+        public void StartGame()
+        {
+            animator.SetBool("GameStarted", true);
+        }
+
+        public void AnimationEnd()
+        {
+            TimerController.StartTimer();
+        }
+
+        public static void EndGame()
+        {
+            animator.SetBool("GameStarted", false);
+        }
     }
 }
