@@ -1,34 +1,36 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChangeColor : MonoBehaviour
+namespace RoomEscape.Objects
 {
-    private Dictionary<MeshRenderer,Color> objectRenderer = new Dictionary<MeshRenderer,Color>();
-    // Start is called before the first frame update
-    void Start()
+    public class ChangeColor : MonoBehaviour
     {
-        foreach (var item in GetComponentsInChildren<MeshRenderer>())
+        private Dictionary<MeshRenderer, Color> objectRenderer = new Dictionary<MeshRenderer, Color>();
+        // Start is called before the first frame update
+        void Start()
         {
-            objectRenderer.Add(item,item.material.color);
+            foreach (var item in GetComponentsInChildren<MeshRenderer>())
+            {
+                objectRenderer.Add(item, item.material.color);
+            }
         }
-    }
 
-    public void OnHover()
-    {
-        foreach (var item in objectRenderer.Keys)
+        public void OnHover()
         {
-            item.material.color += new Color(1f, 1f, 1f);
+            foreach (var item in objectRenderer.Keys)
+            {
+                item.material.color += new Color(1f, 1f, 1f);
+            }
         }
-    }
 
 
-    public void OutHover()
-    {
-        foreach (var item in objectRenderer)
+        public void OutHover()
         {
-            item.Key.material.color = item.Value;
+            foreach (var item in objectRenderer)
+            {
+                item.Key.material.color = item.Value;
+            }
         }
-    }
 
+    }
 }

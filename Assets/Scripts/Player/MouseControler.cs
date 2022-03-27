@@ -1,79 +1,84 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using RoomEscape.Core;
+using RoomEscape.Objects;
+using RoomEscape.UI;
 
-public class MouseControler : MonoBehaviour
+namespace RoomEscape.Player
 {
-    [SerializeField] QuestionPanelScript questionPanel;
-
-    public static bool chestOpened;
-
-    private ChangeColor objectScript;
-    private Camera cam;
-
-    private void Awake()
+    public class MouseControler : MonoBehaviour
     {
-        chestOpened = false;
-    }
+        [SerializeField] PanelsManager panelManager;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        cam = Camera.main;
-    }
+        public static bool chestOpened;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (!TimerController.StartTime || QuestionPanelScript.panelActive)
-            return;
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        private ChangeColor objectScript;
+        private Camera cam;
+        private Vector2 mousePosition = Vector2.zero;
 
-        RaycastHit hit;
-        bool hitted = Physics.Raycast(ray, out hit);
-
-        MouseHover(hitted,hit);
-        if(Input.GetMouseButtonDown(0))
-            MouseClick(hitted, hit);
-    }
-
-    private void MouseClick(bool hitted, RaycastHit hit)
-    {
-        if(hitted)
+        private void Awake()
         {
-            switch(hit.transform.tag)
+            chestOpened = false;
+            cam = Camera.main;
+        }
+
+        public void OnMouseActions(InputValue input)
+        {
+            mousePosition = input.Get<Vector2>();
+
+            Ray ray = cam.ScreenPointToRay(mousePosition);
+
+            RaycastHit hit;
+
+            bool hitted = Physics.Raycast(ray, out hit);
+
+            if (hitted)
+                MouseHover(hit);
+        }
+
+        public void OnClick()
+        {
+            if (!TimerController.StartTime || PanelsManager.panelActive)
+                return;
+
+
+            Ray ray = cam.ScreenPointToRay(mousePosition);
+
+            RaycastHit hit;
+
+            bool hitted = Physics.Raycast(ray, out hit);
+
+            if (hitted)
+                MouseClick(hit);
+        }
+
+        private void MouseClick(RaycastHit hit)
+        {
+            switch (hit.transform.tag)
             {
                 case "Chest":
                     if (!chestOpened)
-                        questionPanel.SetQuestionPanel("Open?", "CHEST");
+                        panelManager.SetQuestionPanel("Open?", "CHEST");
                     else
-                    {
-                        InfoBox.SetInfoBox("Chest is empty!");
-                        InfoBox.ShowInfoBox();
-                    }
+                        panelManager.SetInfoBox("Chest is empty!");
                     break;
                 case "Key":
-                    questionPanel.SetQuestionPanel("Take?", "KEY");
+                    panelManager.SetQuestionPanel("Take?", "KEY");
                     break;
                 case "Door":
-                    if (PlayerData.GetKey())
-                        questionPanel.SetQuestionPanel("Open?", "DOOR");
+                    if (PlayerData.key)
+                        panelManager.SetQuestionPanel("Open?", "DOOR");
                     else
-                    {
-                        InfoBox.SetInfoBox("You need a key!");
-                        InfoBox.ShowInfoBox();
-                    }
+                        panelManager.SetInfoBox("You need a key!");
                     break;
             }
-        }
-    }
 
-    private void MouseHover(bool hitted,RaycastHit hit)
-    {
-        if (hitted)
+        }
+
+        private void MouseHover(RaycastHit hit)
         {
-            switch(hit.transform.tag)
+
+            switch (hit.transform.tag)
             {
                 case "Chest":
                     ChangeObjColor(hit);
@@ -91,22 +96,23 @@ public class MouseControler : MonoBehaviour
                     objectScript = null;
                     break;
             }
-            
+
+
         }
+
+
+        private void ChangeObjColor(RaycastHit hit)
+        {
+            if (objectScript != null && objectScript.transform == hit.transform)
+                return;
+
+            if (objectScript != null)
+                objectScript.OutHover();
+
+            objectScript = hit.transform.GetComponent<ChangeColor>();
+            objectScript.OnHover();
+        }
+
+
     }
-
-
-    private void ChangeObjColor(RaycastHit hit)
-    {
-        if (objectScript != null && objectScript.transform == hit.transform)
-            return;
-
-        if (objectScript != null)
-            objectScript.OutHover();
-
-        objectScript = hit.transform.GetComponent<ChangeColor>();
-        objectScript.OnHover();
-    }
-
-
 }

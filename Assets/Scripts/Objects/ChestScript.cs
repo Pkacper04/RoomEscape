@@ -1,63 +1,62 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using RoomEscape.Player;
+using RoomEscape.UI;
 
-public class ChestScript : MonoBehaviour
+namespace RoomEscape.Objects
 {
-    private Animator animator;
-    private AudioSource SFXaudio;
-
-    [SerializeField] GameObject key;
-
-    [SerializeField] ParticleSystem keyParticles;
-    [SerializeField] ParticleSystem chestParticles;
-
-    [SerializeField] AudioClip chestCracking;
-    [SerializeField] AudioClip pickingUpKey;
-    private void Start()
+    public class ChestScript : MonoBehaviour
     {
-        animator = GetComponent<Animator>();
-        SFXaudio = GetComponent<AudioSource>();
-    }
-    // Start is called before the first frame update
-    public void Open()
-    {
-        
-        StartCoroutine("WaitForChestAnimation");
+        private Animator animator;
+        private AudioSource SFXaudio;
 
-    }
+        [SerializeField] GameObject key;
 
-    public void EndAnimation()
-    {
-        QuestionPanelScript.panelActive = false;
-    }  
-    
-    public void TakeKey()
-    {
-        StartCoroutine("WaitForKeyAnimation");
+        [SerializeField] ParticleSystem keyParticles;
+        [SerializeField] ParticleSystem chestParticles;
 
-    }
+        [SerializeField] AudioClip chestCracking;
+        [SerializeField] AudioClip pickingUpKey;
+        private void Start()
+        {
+            animator = GetComponent<Animator>();
+            SFXaudio = GetComponent<AudioSource>();
+        }
 
-    private IEnumerator WaitForChestAnimation()
-    {
-        yield return new WaitUntil(() => QuestionPanelScript.panelActive == false);
-        chestParticles.Play();
-        MouseControler.chestOpened = true;
-        animator.SetBool("Open", true);
-        SFXaudio.clip = chestCracking;
-        SFXaudio.Play();
+        public void Open()
+        {
 
-    }
-    private IEnumerator WaitForKeyAnimation()
-    {
-        yield return new WaitUntil(() => QuestionPanelScript.panelActive == false);
+            StartCoroutine("WaitForChestAnimation");
 
-        keyParticles.Play();
-        PlayerData.SetKey();
-        key.GetComponent<MeshRenderer>().enabled = false;
-        key.GetComponent<MeshCollider>().enabled = false;
+        }
 
-        SFXaudio.clip = pickingUpKey;
-        SFXaudio.Play();
+        public void TakeKey()
+        {
+            StartCoroutine("WaitForKeyAnimation");
+
+        }
+
+        private IEnumerator WaitForChestAnimation()
+        {
+            yield return new WaitUntil(() => PanelsManager.panelActive == false);
+
+            chestParticles.Play();
+            MouseControler.chestOpened = true;
+            animator.SetBool("Open", true);
+            SFXaudio.clip = chestCracking;
+            SFXaudio.Play();
+
+        }
+        private IEnumerator WaitForKeyAnimation()
+        {
+            yield return new WaitUntil(() => PanelsManager.panelActive == false);
+
+            keyParticles.Play();
+            PlayerData.key = true;
+            key.GetComponent<MeshRenderer>().enabled = false;
+            key.GetComponent<MeshCollider>().enabled = false;
+            SFXaudio.clip = pickingUpKey;
+            SFXaudio.Play();
+        }
     }
 }

@@ -1,21 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ResizeTexture : MonoBehaviour
+namespace RoomEscape.UI
 {
-    // Start is called before the first frame update
-    void Start()
+    public class ResizeTexture : MonoBehaviour
     {
-        MeshFilter meshFilter = GetComponent<MeshFilter>();
-        MeshRenderer renderer = GetComponent<MeshRenderer>();
+        // Start is called before the first frame update
+        void Start()
+        {
+            MeshFilter meshFilter = GetComponent<MeshFilter>();
+            MeshRenderer renderer = GetComponent<MeshRenderer>();
 
-        Bounds bounds = meshFilter.mesh.bounds;
+            Bounds bounds = meshFilter.mesh.bounds;
 
-        Vector3 size = Vector3.Scale(bounds.size, transform.localScale) * .4f;
+            Vector3 size = Vector3.Scale(bounds.size, transform.localScale) * .4f;
 
-        renderer.material.mainTextureScale = size;
-        
+            renderer.material.mainTextureScale = size;
+
+        }
+
     }
-
 }
