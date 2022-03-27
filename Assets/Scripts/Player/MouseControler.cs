@@ -3,16 +3,27 @@ using UnityEngine.InputSystem;
 using RoomEscape.Core;
 using RoomEscape.Objects;
 using RoomEscape.UI;
+using Zenject;
 
 namespace RoomEscape.Player
 {
     public class MouseControler : MonoBehaviour
     {
-        [SerializeField] PanelsManager panelManager;
+        
+        private PanelsManager panelManager;
 
-        public static bool chestOpened;
+        [Inject]
+        public void Constructor(PanelsManager manager)
+        {
+            panelManager = manager;
+        }
 
         private ChangeColor objectScript;
+
+
+
+
+        public static bool chestOpened;
         private Camera cam;
         private Vector2 mousePosition = Vector2.zero;
 

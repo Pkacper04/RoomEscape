@@ -1,9 +1,13 @@
 using UnityEngine;
+using Zenject;
+using RoomEscape.UI;
+using RoomEscape.Objects;
 
 namespace RoomEscape.Core
 {
     public class BuildLevel : MonoBehaviour
     {
+
         [SerializeField] private GameObject boxPrefab;
         [SerializeField] private GameObject doorPrefab;
         [SerializeField] private GameObject wallPrefab;
@@ -12,6 +16,7 @@ namespace RoomEscape.Core
         [SerializeField] private Vector3 center = new Vector3(50, 0, 50);
         [SerializeField] private float length = 20;
         [SerializeField] private float offset = 2;
+
 
 
         private float minValue;
@@ -57,7 +62,11 @@ namespace RoomEscape.Core
 
             Instantiate(boxPrefab, boxPos, Quaternion.identity);
 
+
+
         }
+
+
 
         private void ChooseDoorPosition()
         {
@@ -169,6 +178,8 @@ namespace RoomEscape.Core
             rightWall.transform.localScale = new Vector3(RightWallLength, 5f, .15f);
             middleWall.transform.localScale = new Vector3(1f, 3f, .15f);
         }
+
+        
 
     }
 }

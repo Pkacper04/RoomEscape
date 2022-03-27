@@ -3,7 +3,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using RoomEscape.Objects;
-
+using Zenject;
 
 namespace RoomEscape.UI
 {
@@ -22,12 +22,14 @@ namespace RoomEscape.UI
 
         private ChestScript chest;
         private DoorScript door;
+
+
         private bool doorActive = false;
 
         void Start()
         {
-            chest = GameObject.FindWithTag("Chest").GetComponent<ChestScript>();
-            door = GameObject.FindWithTag("Door").GetComponent<DoorScript>();
+            chest = GameObject.FindObjectOfType<ChestScript>();
+            door = GameObject.FindObjectOfType<DoorScript>();
         }
 
         #region InforPanel
@@ -116,4 +118,5 @@ namespace RoomEscape.UI
 
 
     }
+
 }

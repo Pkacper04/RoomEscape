@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using RoomEscape.Player;
 using RoomEscape.UI;
+using Zenject;
 
 namespace RoomEscape.Objects
 {
@@ -58,5 +59,6 @@ namespace RoomEscape.Objects
             SFXaudio.clip = pickingUpKey;
             SFXaudio.Play();
         }
+
     }
 }
